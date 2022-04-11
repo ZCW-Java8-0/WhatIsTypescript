@@ -1,40 +1,6 @@
-// Import stylesheets
+//Import stylesheets
 //import './style.css';
 //import { Definition } from './sample';
-
-// const form: HTMLFormElement = document.querySelector('#defineform')!;
-
-
-// form.onsubmit = () => {
-//   const formData = new FormData(form);
-
-//   console.log(formData);
-//   const text = formData.get('defineword') as string;
-//   console.log(text);
-
-//   document.getElementById('defineword').textContent = text;
-
-
-//   return false; // prevent reload
-// };
-
-
-
-// class definedWord{
-//   word: string;
-//   definition: string;
-//   synonyms: string;
-
-//   constructor(w: string, d: string, s: string){
-//     this.word = w;
-//     this.definition = d;
-//     this.synonyms = s;
-//   }
-
-
-// }
-
-import { RootObject } from "./interfaces/dictionaryAPI";
 
 const form: HTMLFormElement = document.querySelector('#defineform')!;
 form.onsubmit = () => {
@@ -43,33 +9,54 @@ form.onsubmit = () => {
   console.log(formData);
   const text = formData.get('defineword') as string;
   console.log(text);
+  let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${text}`
+  fetch(url)
+        .then(res =>{
+         if (res.ok){
+      console.log('success')
+      const data = res.json();
+      console.log(data);
 
-  getDefinition(text);
+
+
+
+
+
+      
+    } else { 
+      console.log('not successful')
+    }
+  })
+  .catch(error => console.log('Error'))
+
+
+
+  return false; // false prevent reload  
+};
+
+
+ // const partOfSpeech = data[0]. 
+   
   
 
   // if(text){
   // document.getElementById('defineword').textContent = text;
   // }
-
-  return false; // false prevent reload  
-};
-
-function getDefinition(word: string){
-  let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-  fetch(url)
-  .then(res =>{
-    if (res.ok){
-      console.log('success')
-      let data = res.json();
-      console.log(data);
-    } else { 
-      console.log('not successful')
-    }
-  })
-  .then(data => console.log(data))
-  .catch(error => console.log('Error'))
-
-}
+// function getDefinition(word: string){
+//   let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+//   fetch(url)
+//   .then(res =>{
+//     if (res.ok){
+//       console.log('success')
+//       let data = res.json();
+//       console.log(data);
+//     } else { 
+//       console.log('not successful')
+//     }
+//   })
+//   .then(data => console.log(data))
+//   .catch(error => console.log('Error'))
+// }
 
 
 
